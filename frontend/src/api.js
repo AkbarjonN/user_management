@@ -1,4 +1,4 @@
-const API = "http://localhost:4000/api";
+const API = "https://user-management-1ia7.onrender.com";
 
 export function authHeader() {
   const token = localStorage.getItem("token");
