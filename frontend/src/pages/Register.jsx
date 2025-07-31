@@ -12,7 +12,7 @@ export default function Register() {
   async function register(e) {
     e.preventDefault();
     try {
-      const res = await axios.post(API + "/auth/register", { email, password });
+      const res = await axios.post(API + "/api/auth/register", { email, password });
       setMsg(res.data.message); 
       setTimeout(() => navigate("/login"), 1500);
     } catch (err) {
