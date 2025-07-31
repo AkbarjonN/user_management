@@ -14,7 +14,7 @@ export default function Users() {
 
   async function load() {
     try {
-      const res = await axios.get(API + "/api/users", authHeader());
+      const res = await axios.get(API + "/users", authHeader());
       setUsers(res.data);
     } catch (err) {
       handleAuthError(err);
@@ -35,7 +35,7 @@ export default function Users() {
 
   async function block() {
     try {
-      const res = await axios.post(API + "/api/users/block", { ids: selected }, authHeader());
+      const res = await axios.post(API + "/users/block", { ids: selected }, authHeader());
       setMsg(res.data.message);
       load();
     } catch (err) { handleAuthError(err); }
@@ -43,14 +43,14 @@ export default function Users() {
 
   async function unblock() {
     try {
-      const res = await axios.post(API + "/api/users/unblock", { ids: selected }, authHeader());
+      const res = await axios.post(API + "/users/unblock", { ids: selected }, authHeader());
       setMsg(res.data.message);
       load();
     } catch (err) { handleAuthError(err); }
   }
   async function deleteSelected() {
     try {
-      const res = await axios.post(API + "/api/users/delete", { ids: selected }, authHeader());
+      const res = await axios.post(API + "/users/delete", { ids: selected }, authHeader());
       setMsg(res.data.message);
       setSelected([]);
       load();
