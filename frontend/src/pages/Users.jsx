@@ -22,6 +22,8 @@ export default function Users() {
   }
 
   function handleAuthError(err) {
+    console.log("API err:", err.response);
+    
     const status = err.response?.status;
     const message = err.response?.data?.message;
 
@@ -67,41 +69,50 @@ export default function Users() {
 
   return (
     <>
-      <Navbar />
-      <div className="container mt-4">
-        <StatusAlert message={msg} />
-        <Toolbar onBlock={block} onUnblock={unblock} onDelete={deleteSelected}/>
-        <table className="table table-striped">
-          <thead>
-          <input
-          type="checkbox"
-          onChange={e => {
-          if (e.target.checked) {
-            setSelected(users.map(u => u.id));
-          } else {
-            setSelected([]);
-          }
-          }}
-          checked={selected.length === users.length && users.length > 0}
-          />
-          <p>Select All</p>
-            <tr>
-              <th></th>
-              <th>Email</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(u => (
-              <tr key={u.id}>
-                <td><input type="checkbox" onChange={() => toggle(u.id)} checked={selected.includes(u.id)} /></td>
-                <td className="text-start">{u.email}</td>
-                <td className="text-center">{u.blocked ? "Blocked" : "Active"}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
-  );
+    <Navbar />
+    <div className="container mt-4">
+    <StatusAlert message={msg} />
+    <Toolbar onBlock={block} onUnblock={unblock} onDelete={deleteSelected}/>
+    <table className="table table-striped">
+      <thead>
+        <tr>
+          <th>
+            <input
+              type="checkbox"
+              onChange={e => {
+                if (e.target.checked) {
+                  setSelected(users.map(u => u.id));
+                } else {
+                  setSelected([]);
+                }
+              }}
+              checked={selected.length === users.length && users.length > 0}
+            />
+            <span className="ms-2">Select All</span>
+          </th>
+          <th>Email</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.map(u => (
+          <tr key={u.id}>
+            <td>
+              <input
+                type="checkbox"
+                onChange={() => toggle(u.id)}
+                checked={selected.includes(u.id)}
+              />
+            </td>
+            <td className="text-start">{u.email}</td>
+            <td className="text-center">
+              {u.blocked ? "Blocked" : "Active"}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</>
+);
 }
