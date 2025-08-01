@@ -22,13 +22,16 @@ export default function Users() {
   }
 
   function handleAuthError(err) {
-    const m = err.response?.data?.message;
-    if (m === "User is blocked" || m === "Unauthorized") {
+    const status = err.response?.status;
+    const message = err.response?.data?.message;
+
+    if (status === 401 || status === 403 || 
+        message === "User is blocked" || 
+        message === "Unauthorized") {
       localStorage.removeItem("token");
       navigate("/login");
     }
   }
-
   function toggle(id) {
     setSelected(s => s.includes(id) ? s.filter(x => x !== id) : [...s, id]);
   }
